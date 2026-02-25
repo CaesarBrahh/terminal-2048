@@ -85,17 +85,53 @@ int add_values(int key, int board[4][4])
 {
 	if (key == 65) // up
 	{
-
+		for (int j = 0; j < 4; j++)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				for (int k = i+1; k < 4; k++)
+				{
+					if (board[i][j] == board[k][j])
+					{
+						board[i][j] = board[i][j] + board[k][j];
+						board[k][j] = 0;
+						break;
+					}
+					else if (board[k][j] != 0)
+					{
+						break;
+					}
+				}
+			}
+		}
 	}
 	else if (key == 66) // down
 	{
-
+		for (int j = 0; j < 4; j++)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				for (int k = i+1; k < 4; k++)
+				{
+					if (board[i][j] == board[k][j])
+					{
+						board[i][j] = board[i][j] + board[k][j];
+						board[k][j] = 0;
+						break;
+					}
+					else if (board[k][j] != 0)
+					{
+						break;
+					}
+				}
+			}
+		}
 	}
 	else if (key == 67) // right
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			for (int j = 0; j < 4; j++)
+			for (int j = 0; j < 3; j++)
 			{
 				for (int k = j+1; k < 4; k++)
 				{
@@ -105,13 +141,35 @@ int add_values(int key, int board[4][4])
 						board[i][k] = 0;
 						break;
 					}
+					else if (board[i][k] != 0)
+					{
+						break;
+					}
 				}
 			}
 		}
 	}
 	else // left
 	{
-
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				for (int k = j+1; k < 4; k++)
+				{
+					if (board[i][j] == board[i][k])
+					{
+						board[i][j] = board[i][j] + board[i][k];
+						board[i][k] = 0;
+						break;
+					}
+					else if (board[i][k] != 0)
+					{
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	return 0;
