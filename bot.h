@@ -4,4 +4,11 @@
 int best_move(int board[4][4]);
 int evaluate(int board[4][4]);
 
+typedef struct 
+{
+	int move;
+	int points;
+	int board[4][4];
+} score;
+
 #endif
