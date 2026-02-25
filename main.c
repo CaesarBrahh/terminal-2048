@@ -2,6 +2,7 @@
 TODO:
 - add colors to numbers
 - make zeros just an empty space
+- make values array in add_two function increase and decrease size dynamically
 */
 
 #include "stdio.h"
@@ -10,6 +11,13 @@ TODO:
 
 int display_board(int board[4][4]);
 int shift_values(int key, int board[4][4]);
+int add_two(int board[4][4]);
+
+typedef struct
+{
+	int i;
+	int j;
+} empty;
 
 int main()
 {
@@ -39,6 +47,7 @@ int main()
 
 		// upon each click, shift and add values, restart loop
 		shift_values(key, board);
+		add_two(board);
 	}
 }
 
@@ -67,9 +76,56 @@ int display_board(int board[4][4])
 // ASCIIs: up -> 27, 91, 65; down -> 27, 91, 66; right -> 27, 91, 67; left -> 27, 91, 68
 int shift_values(int key, int board[4][4])
 {
-	// stack
+	// // stack
+	// if (key == 65) // up
+	// {
+	// 	// add all values that are equal in the column
+	// 	// stack upwards
+	// 	for (int i = 0; i < 4; i++)
+	// 	{
 
-	// add new "2" randomly in a zero space
+	// 	}
+	// }
+	// else if (key == 66) // down
+	// {
+
+	// }
+	// else if (key == 67) // right
+	// {
+
+	// }
+	// else // left
+	// {
+
+	// }
+
+	return 0;
+}
+
+// add new "2" randomly in a zero space
+int add_two(int board[4][4])
+{
+	empty values[14];
+	int value_size = 0;
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (board[i][j] == 0)
+			{
+				values[value_size].i = i;
+				values[value_size].j = j;
+				value_size++;
+			}
+		}
+	}
+
+	// choose random space
+	int random_index = rand() % value_size;
+
+	// add 2 to chosen block space
+	board[values[random_index].i][values[random_index].j] = 2;
 
 	return 0;
 }
