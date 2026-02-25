@@ -1,7 +1,7 @@
 /*
 TODO:
+- bug found in align scripts in shift_values()
 - add colors to numbers
-- make zeros just an empty space
 - make values array in add_two function increase and decrease size dynamically
 - remove need to click "enter" after each move select
 */
@@ -49,7 +49,7 @@ int main()
 
 		// upon each click, shift and add values, restart loop
 		shift_values(key, board);
-		add_two(board);
+		//add_two(board);
 	}
 }
 
@@ -64,7 +64,14 @@ int display_board(int board[4][4])
 		for (int j = 0; j < 4; j++) // for each column
 		{
 			// print cell
-			printf("|%4d", board[i][j]); 
+			if (board[i][j] == 0)
+			{
+				printf("|%4c", ' ');
+			}
+			else
+			{
+				printf("|%4d", board[i][j]);
+			} 
 		}
 		printf("|\n");
 	}
@@ -162,6 +169,7 @@ int add_two(int board[4][4])
 	empty values[14];
 	int value_size = 0;
 
+	// find all 0 values
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
