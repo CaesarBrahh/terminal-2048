@@ -39,16 +39,17 @@ int main()
 
 		// listen for arrow key clicks 
 		int key;
-		do
+		do 
 		{
-			getchar();
-			getchar();
+			getchar(); // take out ESC (91)
+			getchar(); // take out [ (27)
 			key = getchar();
+			getchar(); // take out \n (10)
 		} while (key != 65 && key != 66 && key != 67 && key != 68);
 
 		// upon each click, shift and add values, restart loop
 		shift_values(key, board);
-		//add_two(board);
+		add_two(board);
 	}
 }
 
