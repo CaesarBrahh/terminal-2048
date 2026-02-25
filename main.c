@@ -3,6 +3,9 @@
 
 #include "cli.h"
 #include "game.h"
+#include "bot.h"
+
+int collect_key();
 
 int main()
 {
@@ -14,6 +17,11 @@ int main()
 		{0, 0, 0, 0}
 	};
 
+	// determine mode
+	char mode;
+	printf("Press 'b' for Bot Mode or any other key for Play Mode: ");
+	scanf("%c", &mode);
+
 	// begin loop
 	while(1)
 	{
@@ -22,8 +30,28 @@ int main()
 		display_board(board);
 
 		// listen for arrow key clicks 
-		int key = -1;
-		do 
+		int key;
+		if (mode == 'b')
+		{
+			key = best_move(board);
+		}
+		else
+		{
+			key = collect_key();
+		}
+
+		// upon each click, add, shift, add
+		add_values(key, board);
+		shift_values(key, board);
+		add_two(board);
+	}
+}
+
+int collect_key()
+{
+	int key;
+
+	do 
 		{
 			// prompt
 			printf("Press arrow key, then click enter: ");
@@ -59,9 +87,5 @@ int main()
 			while ((ch = getchar()) != '\n' && ch != EOF){}			
 		} while (key != 65 && key != 66 && key != 67 && key != 68);
 
-		// upon each click, add, shift, add
-		add_values(key, board);
-		shift_values(key, board);
-		add_two(board);
-	}
+	return key;
 }
