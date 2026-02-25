@@ -1,5 +1,6 @@
 /*
 TODO:
+- Fix input stream bug
 - add colors to numbers
 - make values array in add_two function increase and decrease size dynamically
 - remove need to click "enter" after each move select
@@ -7,9 +8,12 @@ TODO:
 
 #include "stdio.h"
 #include "stdlib.h"
-#include "string.h"
+
+#define RESET "\033[0m"
+#define BOLD "\033[1m"
 
 int display_board(int board[4][4]);
+char* tile_style(int n);
 int add_values(int key, int board[4][4]);
 int shift_values(int key, int board[4][4]);
 int add_two(int board[4][4]);
@@ -47,7 +51,7 @@ int main()
 			getchar(); // take out \n (10)
 		} while (key != 65 && key != 66 && key != 67 && key != 68);
 
-		// upon each click, shift and add values, restart loop
+		// upon each click, add, shift, add
 		add_values(key, board);
 		shift_values(key, board);
 		add_two(board);
@@ -70,7 +74,7 @@ int display_board(int board[4][4])
 			}
 			else
 			{
-				printf("|%4d", board[i][j]);
+				printf("|%s%4d%s", tile_style(board[i][j]), board[i][j], RESET);
 			} 
 		}
 		printf("|\n");
@@ -81,6 +85,20 @@ int display_board(int board[4][4])
 	return 0;
 }
 
+char* tile_style(int n)
+{
+	if (n == 2)   return "\033[30;46m" BOLD; // black on cyan
+	if (n == 4)   return "\033[37;44m" BOLD; // black on blue
+    if (n == 8)   return "\033[30;43m" BOLD; // black on yellow
+    if (n == 16)  return "\033[30;43m" BOLD;
+    if (n == 32)  return "\033[37;41m" BOLD; // white on red
+    if (n == 64)  return "\033[37;41m" BOLD;
+    if (n >= 128 && n < 1024) return "\033[37;45m" BOLD; // white on magenta
+    if (n >= 1024) return "\033[30;47m" BOLD;       // black on white
+    return ""; // default
+}
+
+// ASCIIs: up -> 27, 91, 65; down -> 27, 91, 66; right -> 27, 91, 67; left -> 27, 91, 68
 int add_values(int key, int board[4][4])
 {
 	if (key == 65) // up
@@ -175,7 +193,6 @@ int add_values(int key, int board[4][4])
 	return 0;
 }
 
-// ASCIIs: up -> 27, 91, 65; down -> 27, 91, 66; right -> 27, 91, 67; left -> 27, 91, 68
 int shift_values(int key, int board[4][4])
 {
 	if (key == 65) // up
