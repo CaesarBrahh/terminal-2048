@@ -1,10 +1,3 @@
-/*
-TODO:
-- Fix input stream bug
-- make values array in add_two function increase and decrease size dynamically
-- remove need to click "enter" after each move select
-*/
-
 #include "stdio.h"
 #include "stdlib.h"
 
@@ -44,6 +37,9 @@ int main()
 		int key = -1;
 		do 
 		{
+			// prompt
+			printf("Press arrow key, then click enter: ");
+
 			char ch1 = getchar(); // take out ESC (27)
 			if (ch1 != 27) 
 			{
