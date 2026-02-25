@@ -10,6 +10,7 @@ TODO:
 #include "string.h"
 
 int display_board(int board[4][4]);
+int add_values(int key, int board[4][4]);
 int shift_values(int key, int board[4][4]);
 int add_two(int board[4][4]);
 
@@ -47,12 +48,12 @@ int main()
 		} while (key != 65 && key != 66 && key != 67 && key != 68);
 
 		// upon each click, shift and add values, restart loop
+		add_values(key, board);
 		shift_values(key, board);
-		//add_two(board);
+		add_two(board);
 	}
 }
 
-// add colors!
 int display_board(int board[4][4])
 {
 	for (int i = 0; i < 4; i++) // for each row
@@ -80,14 +81,44 @@ int display_board(int board[4][4])
 	return 0;
 }
 
+int add_values(int key, int board[4][4])
+{
+	if (key == 65) // up
+	{
+
+	}
+	else if (key == 66) // down
+	{
+
+	}
+	else if (key == 67) // right
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				if (board[i][j] == board[i][j+1])
+				{
+					board[i][j+1] = board[i][j] + board[i][j+1];
+					board[i][j] = 0;
+				}
+				j++;
+			}
+		}
+	}
+	else // left
+	{
+
+	}
+
+	return 0;
+}
 
 // ASCIIs: up -> 27, 91, 65; down -> 27, 91, 66; right -> 27, 91, 67; left -> 27, 91, 68
 int shift_values(int key, int board[4][4])
 {
-	// stack
 	if (key == 65) // up
 	{
-		// align to up
 		for (int j = 0; j < 4; j++)
 		{
 			for (int i = 0; i < 3; i++)
@@ -109,7 +140,6 @@ int shift_values(int key, int board[4][4])
 	}
 	else if (key == 66) // down
 	{
-		// align to down
 		for (int j = 0; j < 4; j++)
 		{
 			for (int i = 3; i > 0; i--)
@@ -131,21 +161,6 @@ int shift_values(int key, int board[4][4])
 	}
 	else if (key == 67) // right
 	{
-		// add values
-		// for (int i = 0; i < 4; i++)
-		// {
-		// 	for (int j = 0; j < 3; j++)
-		// 	{
-		// 		if (board[i][j] == board[i][j+1])
-		// 		{
-		// 			board[i][j+1] = board[i][j] + board[i][j+1];
-		// 			board[i][j] = 0;
-		// 		}
-		// 		j++;
-		// 	}
-		// }
-
-		// align to right
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 3; j > 0; j--)
@@ -165,9 +180,8 @@ int shift_values(int key, int board[4][4])
 			}
 		}
 	}
-	else if (key == 68) // left
+	else // left
 	{
-		// align to left
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 3; j++)
