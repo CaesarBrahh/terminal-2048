@@ -1,6 +1,5 @@
 /*
 TODO:
-- bug found in align scripts in shift_values()
 - add colors to numbers
 - make values array in add_two function increase and decrease size dynamically
 - remove need to click "enter" after each move select
@@ -91,26 +90,41 @@ int shift_values(int key, int board[4][4])
 		// align to up
 		for (int j = 0; j < 4; j++)
 		{
-			for (int i = 3; i > 0; i--)
+			for (int i = 0; i < 3; i++)
 			{
-				if (board[i][j] != 0 && board[i-1][j] == 0)
+				if (board[i][j] == 0)
 				{
-					board[i-1][j] = board[i][j];
-					board[i][j] = 0;
+					for (int k = i; k < 4; k++)
+					{
+						if (board[k][j] != 0)
+						{
+							board[i][j] = board[k][j];
+							board[k][j] = 0;
+							break;
+						}
+					}
 				}
 			}
-		}	}
+		}	
+	}
 	else if (key == 66) // down
 	{
 		// align to down
 		for (int j = 0; j < 4; j++)
 		{
-			for (int i = 0; i < 3; i++)
+			for (int i = 3; i > 0; i--)
 			{
-				if (board[i][j] != 0 && board[i+1][j] == 0)
+				if (board[i][j] == 0)
 				{
-					board[i+1][j] = board[i][j];
-					board[i][j] = 0;
+					for (int k = i; k >= 0; k--)
+					{
+						if (board[k][j] != 0)
+						{
+							board[i][j] = board[k][j];
+							board[k][j] = 0;
+							break;
+						}
+					}
 				}
 			}
 		}
@@ -134,12 +148,19 @@ int shift_values(int key, int board[4][4])
 		// align to right
 		for (int i = 0; i < 4; i++)
 		{
-			for (int j = 0; j < 3; j++)
+			for (int j = 3; j > 0; j--)
 			{
-				if (board[i][j] != 0 && board[i][j+1] == 0)
+				if (board[i][j] == 0)
 				{
-					board[i][j+1] = board[i][j];
-					board[i][j] = 0;
+					for (int k = j; k >= 0; k--)
+					{
+						if (board[i][k] != 0)
+						{
+							board[i][j] = board[i][k];
+							board[i][k] = 0;
+							break;
+						}
+					}
 				}
 			}
 		}
@@ -149,12 +170,19 @@ int shift_values(int key, int board[4][4])
 		// align to left
 		for (int i = 0; i < 4; i++)
 		{
-			for (int j = 3; j > 0; j--)
+			for (int j = 0; j < 3; j++)
 			{
-				if (board[i][j] != 0 && board[i][j-1] == 0)
+				if (board[i][j] == 0)
 				{
-					board[i][j-1] = board[i][j];
-					board[i][j] = 0;
+					for (int k = j; k < 4; k++)
+					{
+						if (board[i][k] != 0)
+						{
+							board[i][j] = board[i][k];
+							board[i][k] = 0;
+							break;
+						}
+					}
 				}
 			}
 		}
