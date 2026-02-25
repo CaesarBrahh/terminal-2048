@@ -1,7 +1,6 @@
 /*
 TODO:
 - Fix input stream bug
-- add colors to numbers
 - make values array in add_two function increase and decrease size dynamically
 - remove need to click "enter" after each move select
 */
@@ -42,13 +41,38 @@ int main()
 		display_board(board);
 
 		// listen for arrow key clicks 
-		int key;
+		int key = -1;
 		do 
 		{
-			getchar(); // take out ESC (91)
-			getchar(); // take out [ (27)
+			char ch1 = getchar(); // take out ESC (27)
+			if (ch1 != 27) 
+			{
+				if (ch1 == '\n') continue;
+
+				// clear input stream
+				int ch;
+				while ((ch = getchar()) != '\n' && ch != EOF){}
+
+				continue;
+			}
+
+			char ch2 = getchar(); // take out [ (91)
+			if (ch2 != '[')
+			{
+				if (ch2 == '\n') continue;
+
+				// clear input stream
+				int ch;
+				while ((ch = getchar()) != '\n' && ch != EOF){}
+
+				continue;
+			}
+
 			key = getchar();
-			getchar(); // take out \n (10)
+
+			// clear input stream
+			char ch;
+			while ((ch = getchar()) != '\n' && ch != EOF){}			
 		} while (key != 65 && key != 66 && key != 67 && key != 68);
 
 		// upon each click, add, shift, add
