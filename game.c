@@ -189,7 +189,7 @@ int shift_values(int key, int board[4][4])
 // add new "2" randomly in a zero space
 int add_two(int board[4][4])
 {
-	empty values[14];
+	empty values[16];
 	int value_size = 0;
 
 	// find all 0 values
