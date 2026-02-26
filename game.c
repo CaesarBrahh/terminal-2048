@@ -30,9 +30,9 @@ int add_values(int key, int board[4][4])
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			for (int i = 0; i < 3; i++)
+			for (int i = 3; i > 0; i--)
 			{
-				for (int k = i+1; k < 4; k++)
+				for (int k = i-1; k >= 0; k--)
 				{
 					if (board[i][j] == board[k][j])
 					{
@@ -52,9 +52,9 @@ int add_values(int key, int board[4][4])
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			for (int j = 0; j < 3; j++)
+			for (int j = 3; j > 0; j--)
 			{
-				for (int k = j+1; k < 4; k++)
+				for (int k = j-1; k >= 0; k--)
 				{
 					if (board[i][j] == board[i][k])
 					{
