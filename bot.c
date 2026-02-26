@@ -56,7 +56,7 @@ int best_move(int board[4][4])
 	find_max(scores[best_index].board);
 
 	printf("Up: %i, Down:%i, Right:%i, Left:%i\n", scores[0].points, scores[1].points, scores[2].points, scores[3].points);
-	usleep(200000);
+	usleep(100000);
 	return scores[best_index].move;
 }
 
@@ -70,6 +70,9 @@ int evaluate(int board[4][4])
 		count += 5;
 	}
 
+	// mototonocity
+
+
 	// count all values in board[4][4] that are 0
 	for (int i = 0; i < 4; i++)
 	{
@@ -78,7 +81,7 @@ int evaluate(int board[4][4])
 			// check for empty space
 			if (board[i][j] == 0)
 			{
-				count++;
+				count += 3;
 			}
 
 			// compare right and up neighbor
@@ -89,6 +92,36 @@ int evaluate(int board[4][4])
 			if (board[i+1][j] == board[i][j])
 			{
 				count++;
+			}
+
+			// motonocity
+			if (j <= 3)
+			{
+				int a = board[i][j];
+				int b = board[i][j+1];
+
+				if (i == 0)
+				{
+					if (a > b)
+					{
+						count++;
+					}
+					else if (a < b)
+					{
+						count--;
+					}
+				}
+				// else
+				// {
+				// 	if (a < b)
+				// 	{
+				// 		count++;
+				// 	}
+				// 	else if (a > b)
+				// 	{
+				// 		count--;
+				// 	}
+				// }
 			}
 		}
 	}
