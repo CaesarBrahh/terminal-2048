@@ -57,7 +57,7 @@ int best_move(int board[4][4])
 	find_max(scores[best_index].board);
 
 	printf("Up: %i, Down:%i, Right:%i, Left:%i\n", scores[0].points, scores[1].points, scores[2].points, scores[3].points);
-	usleep(100000);
+	usleep(10000);
 	return scores[best_index].move;
 }
 
@@ -83,11 +83,11 @@ int evaluate(int board[4][4])
 			}
 
 			// compare neighbor
-			if (board[i][j-1] == board[i][j])
+			if (j > 0 && board[i][j-1] == board[i][j])
 			{
 				count += 2;
 			}
-			if (board[i+1][j] == board[i][j])
+			if (i < 3 && board[i+1][j] == board[i][j])
 			{
 				count += 2;
 			}
@@ -102,7 +102,11 @@ int evaluate(int board[4][4])
 				{
 					if (a > b)
 					{
-						if (log2(a) - log2(b) == 1)
+						if (log2(a) == 0 || log2(b) == 0)
+						{
+							count++;
+						}
+						else if (log2(a) - log2(b) == 1)
 						{
 							count += 3;
 						}
@@ -118,32 +122,8 @@ int evaluate(int board[4][4])
 				}
 			}
 
-			// smoothness
-			// if (j < 3)
-			// {
-			// 	int c = fabs(log2(board[i][j]));
-			// 	int d = fabs(log2(board[i][j+1]));
-			// 	count -= (c - d);
-			// }
-			// if (i < 3)
-			// {
-			// 	count -= (fabs(log2(board[i][j]) - abs(board[i+1][j])));
-			// }
 		}
 	}
-
-	
-	// for (int j = 3; j > 0; j--)
-	// {
-	// 	int a = board[1][j];
-	// 	int b = board[1][j-1];
-
-	// 	if (a < b)
-	// 	{
-	// 		count--;
-	// 	}
-	// }
-	
 
 	// return count
 	return count;
