@@ -208,9 +208,17 @@ int add_two(int board[4][4])
 
 	// choose random space
 	int random_index = rand() % value_size;
+	int two_or_four = rand() % 100;
 
-	// add 2 to chosen block space
-	board[values[random_index].i][values[random_index].j] = 2;
+	// add 2/4 to random block space
+	if (two_or_four < 90)
+	{
+		board[values[random_index].i][values[random_index].j] = 2;
+	}
+	else
+	{
+		board[values[random_index].i][values[random_index].j] = 4;
+	}
 
 	return 0;
 }
