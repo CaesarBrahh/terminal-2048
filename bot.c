@@ -102,13 +102,13 @@ int evaluate(int board[4][4])
 				{
 					if (a > b)
 					{
-						if (log2(a) == 0 || log2(b) == 0)
+						if (a == 0 || b == 0)
 						{
 							//count++;
 						}
-						else if (log2(a) - log2(b) == 1)
+						if (log2(a) - log2(b) == 1)
 						{
-							count += 3;
+							count += 5;
 						}
 						else
 						{
@@ -121,7 +121,6 @@ int evaluate(int board[4][4])
 					}
 				}
 			}
-
 		}
 	}
 
