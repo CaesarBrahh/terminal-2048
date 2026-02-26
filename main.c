@@ -1,21 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "cli.h"
 #include "game.h"
 #include "bot.h"
 
 int collect_key();
+int place_random(int board[4][4]);
 
 int main()
 {
+	srand(time(NULL));
+	
 	// define initial state 
 	int board[4][4] = {
 		{0, 0, 0, 0},
-		{0, 0, 0, 2},
-		{2, 0, 0, 0},
+		{0, 0, 0, 0},
+		{0, 0, 0, 0},
 		{0, 0, 0, 0}
 	};
+	place_random(board);
 
 	// determine mode
 	char mode;
@@ -45,6 +50,38 @@ int main()
 		shift_values(key, board);
 		add_two(board);
 	}
+}
+
+int place_random(int board[4][4])
+{
+	int x1 = rand() % 4;
+	int y1 = rand() % 4;
+	int x2 = rand() % 4;
+	int y2 = rand() % 4;
+
+	int val1 = rand() % 100;
+	int val2 = rand() % 100;
+
+	if (val1 < 90)
+	{
+		//place a 2 at (x1, y1)
+		board[x1][y1] = 2;
+	}
+	else
+	{
+		board[x1][y1] = 4;
+	}
+
+	if (val2 < 90)
+	{
+		board[x2][y2] = 2;
+	}
+	else
+	{
+		board[x2][y2] = 4;
+	}
+
+	return 0;
 }
 
 int collect_key()
