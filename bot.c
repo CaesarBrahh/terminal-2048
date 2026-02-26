@@ -57,7 +57,7 @@ int best_move(int board[4][4])
 	find_max(scores[best_index].board);
 
 	printf("Up: %i, Down:%i, Right:%i, Left:%i\n", scores[0].points, scores[1].points, scores[2].points, scores[3].points);
-	usleep(10000);
+	usleep(50000);
 	return scores[best_index].move;
 }
 
@@ -104,7 +104,7 @@ int evaluate(int board[4][4])
 					{
 						if (log2(a) == 0 || log2(b) == 0)
 						{
-							count++;
+							//count++;
 						}
 						else if (log2(a) - log2(b) == 1)
 						{
