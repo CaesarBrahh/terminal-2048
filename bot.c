@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <math.h>
 
 #include "bot.h"
 #include "game.h"
@@ -67,11 +68,8 @@ int evaluate(int board[4][4])
 	// check max is in bottom-right corner
 	if (board[0][0] == MAX)
 	{
-		count += 5;
+		count += 10;
 	}
-
-	// mototonocity
-
 
 	// count all values in board[4][4] that are 0
 	for (int i = 0; i < 4; i++)
@@ -81,21 +79,21 @@ int evaluate(int board[4][4])
 			// check for empty space
 			if (board[i][j] == 0)
 			{
-				count += 3;
+				count += 20;
 			}
 
-			// compare right and up neighbor
+			// compare neighbor
 			if (board[i][j-1] == board[i][j])
 			{
-				count++;
+				count += 2;
 			}
 			if (board[i+1][j] == board[i][j])
 			{
-				count++;
+				count += 2;
 			}
 
-			// motonocity
-			if (j <= 3)
+			// monotonocity
+			if (j < 3)
 			{
 				int a = board[i][j];
 				int b = board[i][j+1];
@@ -104,27 +102,48 @@ int evaluate(int board[4][4])
 				{
 					if (a > b)
 					{
-						count++;
+						if (log2(a) - log2(b) == 1)
+						{
+							count += 3;
+						}
+						else
+						{
+							count++;
+						}
 					}
-					else if (a < b)
+					else
 					{
 						count--;
 					}
 				}
-				// else
-				// {
-				// 	if (a < b)
-				// 	{
-				// 		count++;
-				// 	}
-				// 	else if (a > b)
-				// 	{
-				// 		count--;
-				// 	}
-				// }
 			}
+
+			// smoothness
+			// if (j < 3)
+			// {
+			// 	int c = fabs(log2(board[i][j]));
+			// 	int d = fabs(log2(board[i][j+1]));
+			// 	count -= (c - d);
+			// }
+			// if (i < 3)
+			// {
+			// 	count -= (fabs(log2(board[i][j]) - abs(board[i+1][j])));
+			// }
 		}
 	}
+
+	
+	// for (int j = 3; j > 0; j--)
+	// {
+	// 	int a = board[1][j];
+	// 	int b = board[1][j-1];
+
+	// 	if (a < b)
+	// 	{
+	// 		count--;
+	// 	}
+	// }
+	
 
 	// return count
 	return count;
