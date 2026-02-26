@@ -65,6 +65,16 @@ int evaluate(int board[4][4])
 			{
 				count++;
 			}
+			
+			// compare right and up neighbor
+			if (board[i][j-1] == board[i][j])
+			{
+				count++;
+			}
+			if (board[i+1][j] == board[i][j])
+			{
+				count++;
+			}
 		}
 	}
 
